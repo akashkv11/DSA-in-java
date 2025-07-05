@@ -11,7 +11,7 @@ public class SlinkedList {
         list.addNode(20);
         list.addNode(50);
         list.display();
-        list.delete(50);
+        list.insertAfter(30, 99);
         list.display();
     }
 
@@ -28,6 +28,38 @@ public class SlinkedList {
         }
         tail = newNode
         ;
+    }
+
+
+    public void insertAfter(int target, int data) {
+
+
+        Node newNode = new Node(data);
+        Node temp = head;
+//        case 1 : list is empty
+        if (head == null) {
+            System.out.print("List is empty, cannot insert");
+            return;
+        }
+//        case 2 : match is not found
+
+        while (temp != null && temp.data != target) {
+            temp = temp.next;
+        }
+        if (temp == null) {
+            System.out.println("Target not found");
+            return;
+        }
+
+
+        newNode.next = temp.next;
+        temp.next = newNode;
+
+//        case 3 : match is found
+        if (temp == tail) {
+            tail = newNode;
+        }
+
     }
 
     public void delete(int deleteData) {
