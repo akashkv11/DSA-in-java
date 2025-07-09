@@ -9,9 +9,13 @@ public class DLinkedList {
         Dlist.insert(2);
         Dlist.insert(3);
         Dlist.insert(4);
-        Dlist.display();
         Dlist.delete(3);
+        Dlist.insertAfter(2, 55);
+        Dlist.insertBefore(55, 0);
+        Dlist.display();
+        System.out.println("List in reverse");
         Dlist.displayReverse();
+
 
     }
 
@@ -27,7 +31,80 @@ public class DLinkedList {
         tail = newNode;
     }
 
-//    TODO : implement insertAfter method and insertBefore method
+//    TODO : implement  insertBefore method
+
+    public void insertBefore(int target, int data) {
+        Node newNode = new Node(data);
+        Node temp = head;
+
+
+        if (temp == null) {
+            System.out.println("List is empty");
+            return;
+        }
+
+        if (temp.data == target) {
+            head = newNode;
+            temp.prev = newNode;
+            newNode.next = temp;
+
+        } else {
+            while (temp != null && temp.data != target) {
+                temp = temp.next;
+            }
+
+            if (temp == null) {
+                System.out.println("Target not found");
+                return;
+            }
+
+            Node previousNode = temp.prev;
+
+            previousNode.next = newNode;
+            newNode.next = temp;
+            temp.prev = newNode;
+            newNode.prev = previousNode;
+
+
+        }
+
+
+    }
+
+    public void insertAfter(int target, int data) {
+        Node newNode = new Node(data);
+        Node temp = head;
+
+        if (temp == null) {
+            System.out.println("List is empty, No target found");
+            return;
+        }
+
+        // Traverse to the target
+        while (temp != null && temp.data != target) {
+            temp = temp.next;
+        }
+
+        if (temp == null) {
+            System.out.println("Target not found");
+            return;
+        }
+
+        // Save the original next node
+        Node nextNode = temp.next;
+
+        // Link newNode between temp and nextNode
+        newNode.next = nextNode;
+        newNode.prev = temp;
+        temp.next = newNode;
+
+        if (nextNode != null) {
+            nextNode.prev = newNode;
+        } else {
+            // Inserted after tail
+            tail = newNode;
+        }
+    }
 
     public void delete(int data) {
         Node temp = head;
