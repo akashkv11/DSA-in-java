@@ -71,6 +71,7 @@ public class DLinkedList {
 
     }
 
+
     public void insertAfter(int target, int data) {
         Node newNode = new Node(data);
         Node temp = head;
